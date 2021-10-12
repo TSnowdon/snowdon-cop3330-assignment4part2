@@ -1,0 +1,58 @@
+Application Assignment 1, Part 1 Spec Document
+
+Overview
+Using IntelliJ and Gradle, you will create a GUI-based desktop application to allow a user to manage multiple "todo"-type lists.
+
+For [Part 1] of this assignment, you will focus on the design elements: UML Class Diagrams, GUI mock-ups, and pseudocode.
+
+You will identify and define classes, interfaces, behaviors, and relationships;
+but, you will not implement any of the methods beyond what is required for a successful build.
+
+    - Your `main()` method should only contain enough code to launch the application.
+    - Your `start()` method should only contain enough code to load your FXML file and display it.
+    - Any methods with a return value should simply return a literal.
+    - Any methods without a return value should contain only pseudocode.
+
+Directions
+Your application shall satisfy the following requirements:
+
+    // List Attributes
+    A todo list shall have a title
+    A todo list shall have the capacity to store at least 100 unique items
+
+    // List Item Attributes
+    An item shall have a description
+    An item shall have a due date, formatted as YYYY-MM-DD
+
+    // App Features
+    The application shall be able to manage at least 100 unique todo lists
+        // - List Actions
+            A user shall be able to add a new todo list
+            A user shall be able to remove an existing todo list
+            A user shall be able to edit the title of an existing todo list
+        // - List Item Manipulation
+            A user shall be able to add a new item to an existing todo list
+            A user shall be able to remove an item from an existing todo list
+            A user shall be able to mark an item in a todo list as complete
+            A user shall be able to edit the description of an item within an existing todo list
+            A user shall be able to edit the due date of an item within an existing todo list
+        // - Different Views
+            A user shall be able to display all of the existing items in a todo list
+            A user shall be able to display only the incomplete items in a todo list
+            A user shall be able to display only the completed items in a todo list
+        // - Exporting Feature (Single List and All List)
+            A user shall be able to save all of the items in a single todo list to external storage
+            A user shall be able to save all of the items across all of the todo lists to external storage
+        // - Importing Feature (Single List and All List)
+            A user shall be able to load a single todo list that was previously saved to external storage
+            A user shall be able to load multiple todo lists that were previous saved to external storage
+
+Plan
+(Potential Minecraft Theme?)
+The application will be a "task list" system that utilizes dropdowns to allow the selection of different task lists.
+A task list will contain a name, and a list of "items" that store the information regarding a task.
+A task list can display items by a certain criteria.
+A task list with multiple items can be navigated via scrollbar if the items go out of the rectangle.
+A task list can be imported and exported via an unspecified data file (I'm thinking JSON).
+The items will be stored in vertical row-column fashion. With the order of the task being by default organized by the due date.
+Each task list will have an item that displays the description, status, as well as the due date.

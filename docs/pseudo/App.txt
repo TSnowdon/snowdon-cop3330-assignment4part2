@@ -1,0 +1,56 @@
+Main
+    Load Lists -> *Check Dates for overdue tasks?
+    Load Tasks
+    Load GUI
+        Load Buttons
+        Load Event Listeners
+        Finalize Display
+    Load Last Viewed List
+End
+
+Add List
+    Ask for name
+    construct list
+End
+
+Add Task
+    Ask for description
+    Ask for date
+    construct task
+End
+
+Remove List
+    Delete list
+End
+
+Remove Task
+    Delete from list
+End
+
+Change View
+    Ask for type of view
+    Sort list based off of view
+End
+
+Import List
+    Verify File Format
+        GSON deserializes to JSON
+        Notify user that list was importer
+    Else
+        Tell them invalid File Format
+End
+
+Export List
+    GSON serializes to JSON
+    Notify user that list was exported
+End
+
+@Event Handler
+onClose
+    Save Lists
+    Save Tasks
+    Save Client Data
+        Save Last Opened List
+        Save Last Used View
+    Close Client
+End
