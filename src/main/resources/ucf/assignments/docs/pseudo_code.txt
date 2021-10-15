@@ -1,0 +1,89 @@
+public class App {
+
+    private static ArrayList<TaskList> lists;
+    private static TaskList currentList;
+    private static StatusType currentView;
+
+    public static void main(String[] args){
+        Load Lists -> *Check Dates for overdue tasks?
+        Load Tasks
+        Load Last Viewed List -> Before Launch?
+        launch(args)
+    }
+
+    public static void start(){
+        Launch GUI
+            Load FXML
+            Load CSS
+    }
+
+    public static void importTaskList(String fileName){
+        Verify File Format
+            GSON deserializes to JSON
+            Notify user that list was importer
+        Else
+            Tell them invalid File Format
+    }
+
+    public static void exportTaskList(String fileName){
+        GSON serializes to JSON
+        Name JSON "fileName"
+        Save JSON file
+        Notify user that list was exported
+    }
+
+    public static void removeList(){
+        Remove "currentList"
+        Set GUI Stage to default (empty)
+    }
+
+    public static void addList(String listName){
+        Construct TaskList named "listName"
+        Set GUI Stage to view the new TaskList
+    }
+}
+
+public class Task{
+
+    private String description;
+    private StatusType status;
+    private Date dueDate;
+
+    Constructor...
+
+    public String getDescription(){
+        return "description"
+    }
+
+    public StatusType getStatus(){
+        return "status"
+    }
+
+    public Date getDate(){
+        return "dueDate"
+    }
+}
+
+public class TaskList{
+
+    private String name;
+    private ArrayList<Task> tasks;
+
+    Constructor
+        make tasks empty on default
+
+    public String getName(){
+        returns "name"
+    }
+
+    public ArrayList<Task> getTasks(){
+        return "tasks"
+    }
+
+    public void updateTasks(){
+        For Each Task in "tasks"
+            update Task
+                If its pass its dueDate
+                    set status to LATE
+    }
+}

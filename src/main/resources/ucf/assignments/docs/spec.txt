@@ -24,7 +24,7 @@ Your application shall satisfy the following requirements:
     An item shall have a description
     An item shall have a due date, formatted as YYYY-MM-DD
 
-    // App Features
+    // ucf.assignments.App Features
     The application shall be able to manage at least 100 unique todo lists
         // - List Actions
             A user shall be able to add a new todo list

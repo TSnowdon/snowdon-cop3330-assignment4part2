@@ -1,0 +1,66 @@
+@startuml
+
+class App
+class Application
+class Task
+class TaskList
+class FXMLController
+enum StatusType
+
+App -- TaskList
+TaskList -- Task
+StatusType -- Task
+StatusType -- App
+FXMLController -- App
+
+class App extends Application {
+Main Application that will handle
+all external and internal events.
+__ Attributes __
+- ArrayList<TaskList> lists
+__ Methods __
++ {static} start()
++ {static} void main()
++ {static} importTaskList()
++ {static} exportTaskList()
+}
+
+class Task {
+Data Class for storing Task Information.
+__ Attributes __
+- StatusType status
+- String description
+- Date dueDate
+__ Methods __
++ StatusType getStats()
++ String getDescription()
++ Date getDueDate()
+}
+
+class TaskList {
+Data Class for storing Tasks.
+__ Attributes __
+- ArrayList<Task> tasks
+- String name
+__ Methods __
++ ArrayList<Task> getTasks()
++ String getName()
+}
+
+class Application {
+Application class from
+which JavaFX applications extend.
+}
+
+class FXMLController {
+Application class for JavaFX
+that handles events that happen
+through buttons, text fields, etc.
+}
+
+enum StatusType {
+    EARLY
+    LATE
+}
+
+@enduml
