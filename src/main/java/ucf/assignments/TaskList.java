@@ -33,7 +33,7 @@ public class TaskList {
         this.name = name;
     }
 
-    public void updateTasks(){
+    public void updateTasks() {
         /**
          * For each Task in tasks
          * check if there dueDate has passed

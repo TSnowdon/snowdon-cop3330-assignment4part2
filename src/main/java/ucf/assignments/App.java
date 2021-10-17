@@ -20,7 +20,9 @@ public class App extends Application {
     private static StatusType currentView = null;
 
     @Override
+    // Called before FXMLController
     public void start(Stage stage) throws Exception {
+        System.out.println("start is called...");
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("ucf/assignments/scene.fxml"));
 
         Scene scene = new Scene(root);
