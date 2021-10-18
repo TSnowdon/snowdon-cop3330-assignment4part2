@@ -5,10 +5,14 @@
 
 package ucf.assignments;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.*;
@@ -19,6 +23,10 @@ public class FXMLController implements Initializable {
     public Button exportListButton;
     public Button newListButton;
     public Button newTaskButton;
+    public Button changeListButton;
+    public Button deleteListButton;
+    public Button deleteTaskButton;
+    public Button updateTaskButton;
 
     public TextField newListTextField;
     public TextField newTaskDescriptionTextField;
@@ -45,30 +53,6 @@ public class FXMLController implements Initializable {
          * Update the list of possible Views that can be selected
          * Use the String of displayNames from the StatusType
          */
-
-        /**
-         * I'm keeping this here because I wanted to make sure it works when I actually update the list.
-         * ArrayList<String> options = new ArrayList<>();
-         * selectListComboBox.setItems(FXCollections.observableArrayList(options));
-         */
-
-        /**
-         *      I had to test out how the actual code works since IDK FXML
-         *      but now I know that this works I know how to write the pseudo code
-         *        Map<String, ObservableValue<Boolean>> map = new HashMap<>();
-         *        map.put("Task1", new SimpleBooleanProperty(true));
-         *        map.put("Task2", new SimpleBooleanProperty(true));
-         *        map.put("Task3", new SimpleBooleanProperty(true));
-         *
-         *        taskListView.setEditable(true);
-         *        taskListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-         *
-         *        taskListView.getItems().addAll(map.keySet());
-         *
-         *        Callback<String, ObservableValue<Boolean>> callback = map::get;
-         *        taskListView.setCellFactory(lv -> new CheckBoxListCell<>(callback));
-         */
-
     }
 
     public void importList(ActionEvent actionEvent) {
@@ -149,6 +133,36 @@ public class FXMLController implements Initializable {
          *          If there is a duplicate
          *              Tell the user that there is a duplicate
          *              Don't do anything
+         */
+    }
+
+    public void changeList(ActionEvent actionEvent) {
+        /**
+         * Change the name of the current selected
+         * TasKlist to the value of whatever is in the textbox
+         */
+    }
+
+    public void deleteList(ActionEvent actionEvent) {
+        /**
+         * Delete the current selected list
+         * change view to the next list
+         */
+    }
+
+    public void deleteTask(ActionEvent actionEvent) {
+        /**
+         * Delete the currently selected task
+         * From the currently selected tasklist
+         */
+    }
+
+    public void updateTask(ActionEvent actionEvent) {
+        /**
+         * Update the currently selected task
+         * From the currently selected tasklist
+         *
+         * Take into account both description value and date value
          */
     }
 }

@@ -1,0 +1,21 @@
+
+
+   How to update the ComboBox List:
+
+   ArrayList<String> options = new ArrayList<>();
+   selectListComboBox.setItems(FXCollections.observableArrayList(options));
+
+
+   How to update the CheckBox List:
+   Map<String, ObservableValue<Boolean>> map = new HashMap<>();
+   map.put("Task1", new SimpleBooleanProperty(true));
+   map.put("Task2", new SimpleBooleanProperty(true));
+   map.put("Task3", new SimpleBooleanProperty(true));
+
+   taskListView.setEditable(true);
+   taskListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+   taskListView.getItems().addAll(map.keySet());
+
+   Callback<String, ObservableValue<Boolean>> callback = map::get;
+   taskListView.setCellFactory(lv -> new CheckBoxListCell<>(callback));

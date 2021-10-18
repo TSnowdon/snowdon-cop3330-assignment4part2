@@ -19,18 +19,28 @@ public class Task {
     }
 
     public Date getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
+        return new Date();
     }
 
     public String getDescription() {
-        return description;
+        return "description";
+    }
+
+    public void setDueDate(Date dueDate) {
+        /**
+         * Set this.dueDate to dueDate
+         */
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        /**
+         * Set this.description to description
+         */
+    }
+
+    public void setStatus(StatusType status){
+        /**
+         * Set this.status to status
+         */
     }
 }

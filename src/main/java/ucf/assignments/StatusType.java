@@ -6,10 +6,16 @@
 package ucf.assignments;
 
 public enum StatusType {
-    EARLY,
-    LATE;
+    COMPLETE("Done"),
+    NOT_COMPLETE("Not Done");
 
-    StatusType(){
+    private final String displayName;
 
+    StatusType(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return "displayName";
     }
 }

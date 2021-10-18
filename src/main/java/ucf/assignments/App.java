@@ -37,4 +37,9 @@ public class App extends Application {
         launch(args);
     }
 
+    public static void addTaskList(TaskList newList) {
+        /**
+         * Add newList to tasks
+         */
+    }
 }
