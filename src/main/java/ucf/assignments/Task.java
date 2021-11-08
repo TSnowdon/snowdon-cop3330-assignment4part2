@@ -5,7 +5,9 @@
 
 package ucf.assignments;
 
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.Formatter;
 
 public class Task {
 
@@ -14,7 +16,7 @@ public class Task {
     private StatusType status;
 
     public Task(String description, Date dueDate) {
-        this.description = description;
+        this.description = description.trim();
         this.dueDate = dueDate;
     }
 
@@ -23,7 +25,7 @@ public class Task {
     }
 
     public String getDescription() {
-        return "description";
+        return description;
     }
 
     public void setDueDate(Date dueDate) {
@@ -38,9 +40,14 @@ public class Task {
          */
     }
 
-    public void setStatus(StatusType status){
+    public void setStatus(StatusType status) {
         /**
          * Set this.status to status
          */
+    }
+
+    @Override
+    public String toString() {
+        return dueDate.toString() + " - " + description;
     }
 }
