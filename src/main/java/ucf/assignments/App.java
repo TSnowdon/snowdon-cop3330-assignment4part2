@@ -10,10 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ucf.assignments.utils.DateParser;
+import ucf.assignments.utils.DateUtils;
 import ucf.assignments.utils.Logger;
-
-import java.util.ArrayList;
 
 public class App extends Application {
 
@@ -24,7 +22,7 @@ public class App extends Application {
     @Override
     // Called before FXMLController
     public void start(Stage stage) throws Exception {
-        DateParser.initialize();
+        DateUtils.initialize();
         Logger.initialize();
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("ucf/assignments/scene.fxml"));
         currentList = new TaskList("List 1");
@@ -46,6 +44,14 @@ public class App extends Application {
 
     public static Task getCurrentTask() {
         return currentTask;
+    }
+
+    public static void clearCurrentTask() {
+        currentTask = null;
+    }
+
+    public static void updateCurrentTaskList(Task task) {
+        currentList.updateTask(task);
     }
 
     public static void setCurrentTaskList(TaskList newList) {

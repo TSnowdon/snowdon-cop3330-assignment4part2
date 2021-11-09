@@ -5,19 +5,24 @@
 
 package ucf.assignments;
 
-import java.text.DateFormat;
+import ucf.assignments.utils.DateUtils;
+
 import java.util.Date;
-import java.util.Formatter;
+import java.util.UUID;
 
 public class Task {
+
+    public static final int MAX_DESC_LENGTH = 256;
 
     private String description;
     private Date dueDate;
     private StatusType status;
+    private final UUID uuid;
 
     public Task(String description, Date dueDate) {
         this.description = description.trim();
         this.dueDate = dueDate;
+        this.uuid = UUID.randomUUID();
     }
 
     public Date getDueDate() {
@@ -29,25 +34,31 @@ public class Task {
     }
 
     public void setDueDate(Date dueDate) {
-        /**
-         * Set this.dueDate to dueDate
-         */
+        this.dueDate = dueDate;
     }
 
     public void setDescription(String description) {
-        /**
-         * Set this.description to description
-         */
+        this.description = description;
     }
 
     public void setStatus(StatusType status) {
-        /**
-         * Set this.status to status
-         */
+        this.status = status;
+    }
+
+    public boolean matches(Task task) {
+        return task.getId().equals(uuid);
+    }
+
+    public String getFormatted() {
+        return DateUtils.format(dueDate) + " - " + description;
     }
 
     @Override
     public String toString() {
-        return dueDate.toString() + " - " + description;
+        return description;
+    }
+
+    public UUID getId() {
+        return uuid;
     }
 }
