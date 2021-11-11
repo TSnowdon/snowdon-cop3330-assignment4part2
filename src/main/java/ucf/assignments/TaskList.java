@@ -5,8 +5,13 @@
 
 package ucf.assignments;
 
+import com.google.gson.Gson;
+import ucf.assignments.utils.FileUtils;
 import ucf.assignments.utils.Logger;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -14,28 +19,27 @@ import java.util.UUID;
 public class TaskList {
 
     private String name;
-    private HashMap<UUID, Task> tasks;
+    private ArrayList<Task> tasks;
 
     public TaskList(String name) {
         this.name = name;
-        this.tasks = new HashMap<>();
+        this.tasks = new ArrayList<>();
     }
 
-    public HashMap<UUID, Task> getTasks() {
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(HashMap<UUID, Task> tasks) {
+    public void setTasks(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
     public void addTask(Task task) {
-        tasks.put(task.getId(), task);
+        tasks.add(task);
     }
 
     public void removeTask(Task task) {
-        tasks.remove(task.getId());
-        System.out.println(tasks);
+        tasks.remove(task);
     }
 
     public String getName() {
@@ -51,20 +55,20 @@ public class TaskList {
     }
 
     public boolean containsTask(Task task) {
-        return tasks.containsKey(task.getId());
+        return tasks.contains(task);
+    }
+
+    public boolean isEmpty() {
+        return tasks.isEmpty();
     }
 
     public Task getTask(String formatted) {
-        for (Task value : tasks.values()) {
+        for (Task value : tasks) {
             if (value.getFormatted().equalsIgnoreCase(formatted)) {
                 return value;
             }
         }
         return null;
-    }
-
-    public Task getTask(UUID uuid) {
-        return tasks.get(uuid);
     }
 
     public void updateTasks(Task curr) {
@@ -76,8 +80,8 @@ public class TaskList {
     }
 
     public void updateTask(Task input) {
-        tasks.put(input.getId(), input);
-        Logger.debug("Task updated %s", tasks.values());
+        tasks.add(input);
+        Logger.debug("Task updated %s", tasks);
     }
 
     @Override
@@ -88,7 +92,19 @@ public class TaskList {
                 '}';
     }
 
+    public void serialize() {
+        Gson output = new Gson();
+        String toJson = output.toJson(this);
+        FileUtils.write(name + ".json", toJson);
+        Logger.debug("%s has been serialized", name);
+    }
+
+    public static TaskList deserialize(String path) {
+        Gson input = new Gson();
+        return input.fromJson(FileUtils.read(path), TaskList.class);
+    }
+
     public void clearTasks() {
-        tasks = new HashMap<>();
+        tasks = new ArrayList<>();
     }
 }

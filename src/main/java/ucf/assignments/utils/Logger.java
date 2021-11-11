@@ -10,11 +10,15 @@ import ucf.assignments.App;
 public class Logger {
 
     private static Logger instance;
-    public static boolean debug = false;
+    public static boolean debug = true;
     private static String debugHeader = "[DEBUG]";
 
     public Logger() {
 
+    }
+
+    public static boolean isDebug() {
+        return debug;
     }
 
     public static void debug(String format, Object... parameters) {

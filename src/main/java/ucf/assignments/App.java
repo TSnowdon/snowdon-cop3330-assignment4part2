@@ -25,11 +25,10 @@ public class App extends Application {
         DateUtils.initialize();
         Logger.initialize();
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("ucf/assignments/scene.fxml"));
-        currentList = new TaskList("List 1");
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
-        stage.setTitle("Tasklist GUI Test");
+        stage.setTitle("Tasklists");
         stage.setScene(scene);
         stage.show();
     }
@@ -42,14 +41,6 @@ public class App extends Application {
         return currentList;
     }
 
-    public static Task getCurrentTask() {
-        return currentTask;
-    }
-
-    public static void clearCurrentTask() {
-        currentTask = null;
-    }
-
     public static void updateCurrentTaskList(Task task) {
         currentList.updateTask(task);
     }
@@ -59,8 +50,24 @@ public class App extends Application {
         Logger.debug("%s is set to the current list", newList.getName());
     }
 
+    public static Task getCurrentTask() {
+        return currentTask;
+    }
+
+    public static void clearCurrentTask() {
+        currentTask = null;
+    }
+
     public static void setCurrentTask(Task target) {
         currentTask = target;
         Logger.debug("\"%s\" is set to the current task", target.getDescription());
+    }
+
+    public static StatusType getCurrentView() {
+        return currentView;
+    }
+
+    public static void setCurrentView(StatusType view) {
+        currentView = view;
     }
 }
