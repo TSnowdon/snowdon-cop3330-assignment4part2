@@ -27,7 +27,7 @@ public class DateUtils {
      */
     public static Date parse(String date) {
         Date out = new Date();
-        if (date.isEmpty()) {
+        if (date.isEmpty() || date.isBlank()) {
             Logger.debug("Empty date found");
             return out;
         }

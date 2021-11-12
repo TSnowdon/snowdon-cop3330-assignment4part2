@@ -71,14 +71,6 @@ public class TaskList {
         return null;
     }
 
-    public void updateTasks(Task curr) {
-        /**
-         * For each Task in tasks
-         * check if there dueDate has passed
-         * if there dueDate has passed update there status
-         */
-    }
-
     public void updateTask(Task input) {
         tasks.add(input);
         Logger.debug("Task updated %s", tasks);

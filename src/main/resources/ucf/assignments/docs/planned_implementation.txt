@@ -22,8 +22,8 @@ Your application shall satisfy the following requirements (note that, as in the 
 ✓ A user shall be able to save the list (and all of its items) to external storage
 ✓ A user shall be able to load a list (and all of its items) from external storage
 
-The developer shall provide a help screen with directions on how to use the application.
-The help screen shall describe how to execute each behavioral requirement provided by the application (e.g. add an item, remove an item, edit an item, etc)
+✓ The developer shall provide a help screen with directions on how to use the application.
+✓ The help screen shall describe how to execute each behavioral requirement provided by the application (e.g. add an item, remove an item, edit an item, etc)
 
-This help screen shall be provided as either a dedicated window within the application,
-or a markdown file called `readme.md` on your GitHub repository for the project.)
+✓ This help screen shall be provided as either a dedicated window within the application,
+✓ or a markdown file called `readme.md` on your GitHub repository for the project.)

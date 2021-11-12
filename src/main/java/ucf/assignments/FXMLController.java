@@ -44,9 +44,9 @@ public class FXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         App.setCurrentTaskList(new TaskList("TaskList"));
-        listNameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-                App.getCurrentTaskList().setName(newValue);
-                Logger.debug("[listNameTextField] \"%s\" List is now \"%s\"", oldValue, newValue);
+        listNameTextField.textProperty().addListener((observable, previousValue, newValue) -> {
+            App.getCurrentTaskList().setName(newValue);
+            Logger.debug("[listNameTextField] \"%s\" List is now \"%s\"", previousValue, newValue);
         });
         render();
     }
@@ -95,15 +95,13 @@ public class FXMLController implements Initializable {
 
         taskListView.getItems().addAll(map.keySet());
 
-        taskListView.setCellFactory(CheckBoxListCell.forListView(new Callback<Task, ObservableValue<Boolean>>() {
-            @Override
-            public ObservableValue<Boolean> call(Task task) {
-                BooleanProperty observable = new SimpleBooleanProperty(task.getStatus().getDisplayValue());
-                observable.addListener((obs, before, after) -> {
-                    task.setStatus(after ? StatusType.COMPLETE : StatusType.NOT_COMPLETE);
-                });
-                return observable;
-            }
+        taskListView.setCellFactory(CheckBoxListCell.forListView(task -> {
+            BooleanProperty observable = new SimpleBooleanProperty(task.getStatus().getDisplayValue());
+            observable.addListener((observableValue, previousValue, newValue) -> {
+                task.setStatus(newValue ? StatusType.COMPLETE : StatusType.NOT_COMPLETE);
+                Logger.debug("Task \"%s\" went from \"%s\" to \"%s\"", task.getDescription(), StatusType.getType(previousValue), StatusType.getType(newValue));
+            });
+            return observable;
         }));
     }
 
@@ -126,25 +124,6 @@ public class FXMLController implements Initializable {
         }
     }
 
-    public void newList(ActionEvent actionEvent) {
-        String newListName = listNameTextField.getText();
-
-        if (newListName.isEmpty() || newListName.isBlank()) {
-            Logger.debug("No input detected.");
-            return;
-        }
-
-        if (App.getCurrentTaskList().getName().equals(newListName)) {
-            Logger.debug("The List %s already exists", newListName);
-            return;
-        }
-
-        TaskList newList = new TaskList(newListName);
-        App.setCurrentTaskList(newList);
-        Logger.debug("List %s created", newListName);
-        render();
-    }
-
     public void selectView(ActionEvent actionEvent) {
         String viewValue = selectViewComboBox.getValue();
         StatusType viewType = StatusType.getType(viewValue);
@@ -158,7 +137,8 @@ public class FXMLController implements Initializable {
         String desc = newTaskDescriptionTextField.getText();
         String date = newTaskDateField.getText();
 
-        if (desc.isEmpty()) {
+        if (desc.isEmpty() || desc.isBlank()) {
+            newTaskDescriptionTextField.clear();
             return;
         }
 
@@ -197,11 +177,15 @@ public class FXMLController implements Initializable {
 
         Task curr = App.getCurrentTask();
         if (!desc.isEmpty()) {
-            curr.setDescription(desc);
+            if (!desc.isBlank()) {
+                curr.setDescription(desc);
+            }
         }
 
         if (!date.isEmpty()) {
-            curr.setDueDate(DateUtils.parse(date));
+            if (!date.isBlank()) {
+                curr.setDueDate(DateUtils.parse(date));
+            }
         }
 
         //  App.updateCurrentTaskList(curr);

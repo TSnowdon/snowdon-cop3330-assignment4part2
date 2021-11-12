@@ -39,6 +39,15 @@ public enum StatusType {
         return null;
     }
 
+    public static StatusType getType(boolean displayValue) {
+        for (StatusType type : values()) {
+            if (type.getDisplayValue() == displayValue) {
+                return type;
+            }
+        }
+        return null;
+    }
+
     public boolean getDisplayValue() {
         return displayValue;
     }
