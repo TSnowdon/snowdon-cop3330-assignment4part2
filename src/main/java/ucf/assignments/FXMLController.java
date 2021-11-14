@@ -83,7 +83,7 @@ public class FXMLController implements Initializable {
     public void displayTasks(TaskList list) {
         Logger.debug("rendering...");
         taskListView.getItems().clear();
-        Map<Task, ObservableValue<Boolean>> map = new HashMap<>();
+        ArrayList<Task> map = new ArrayList<>();
         ArrayList<Task> tasks = list.getTasks();
 
         StatusType currView = App.getCurrentView();
@@ -93,22 +93,24 @@ public class FXMLController implements Initializable {
                 currText = "SORTING";
                 currView = null;
                 Logger.debug("[sorting] before sorting... %s", tasks);
-                tasks = tasks.stream().sorted(Comparator.comparingLong(task -> task.getDueDate().getTime())).collect(Collectors.toCollection(ArrayList::new));
+                tasks = tasks.stream().sorted(Task::compareTo)
+                        .collect(Collectors.toCollection(ArrayList::new));
+
+                Collections.reverse(tasks);
                 Logger.debug("[sorting] after sorting... %s", tasks);
             }
         }
         Logger.debug("-> Now viewing %s tasks", currView != null ? currView.getDisplayName() : currText);
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
+        for (Task task : tasks) {
             if (currView == null || task.getStatus().matches(currView)) {
-                map.put(task, new SimpleBooleanProperty(false));
+                map.add(task);
             }
         }
 
         taskListView.setEditable(false);
         taskListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        taskListView.getItems().addAll(map.keySet());
+        taskListView.getItems().addAll(map);
 
         taskListView.setCellFactory(CheckBoxListCell.forListView(task -> {
             BooleanProperty observable = new SimpleBooleanProperty(task.getStatus().getDisplayValue());
@@ -166,9 +168,9 @@ public class FXMLController implements Initializable {
         if (App.getCurrentTaskList().containsTask(desc)) {
             return;
         }
-
         Date taskDate = DateUtils.parse(date);
         Task newTask = new Task(desc, taskDate);
+        Logger.debug("[newTask] %s %s", newTask.getDescription(), newTask.getDueDate());
         App.getCurrentTaskList().addTask(newTask);
         App.setCurrentTask(newTask);
         render();

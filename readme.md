@@ -26,12 +26,13 @@ Your tasks will still remain if you wish to change or update them, but remember 
 To clear all lists in a Task List click "Clear List".
 
 **WARNING** This will remove ALL tasks without saving them, and there is no warning message, so this is the best warning you will get.
-###Changing Views
+###Changing Views & Sorting
 To change which kind of Tasks display, select your requested option from the "Select View" dropdown. The following selections will change the view accordingly:
 
 - All: Shows ALL Tasks.
 - Complete: Shows only Tasks that were marked as completed.
 - Incomplete: Shows only Tasks that were marked as incomplete.
+- **Sort By Due Dates**: A Special View that Sorts the task in ascending order (later dates at the top).
 ##Task Management
 Every Task has a description, a due date, and a status. The description is a string of text describing what must be done. The due date is the physical date and time that task should be completed. And the status defines
 whether the task is completed.

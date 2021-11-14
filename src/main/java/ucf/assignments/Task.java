@@ -6,8 +6,10 @@
 package ucf.assignments;
 
 import ucf.assignments.utils.DateUtils;
+import ucf.assignments.utils.Logger;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.UUID;
 
 public class Task implements Comparable<Task> {
@@ -28,7 +30,7 @@ public class Task implements Comparable<Task> {
     }
 
     public Date getDueDate() {
-        return new Date();
+        return dueDate;
     }
 
     public void setDueDate(Date dueDate) {
@@ -55,13 +57,17 @@ public class Task implements Comparable<Task> {
         return task.getId().equals(uuid);
     }
 
+    public String getFormatted(boolean debug) {
+        return (!debug ? DateUtils.format(dueDate) : dueDate) + "  " + description;
+    }
+
     public String getFormatted() {
-        return DateUtils.format(dueDate) + "  " + description;
+        return getFormatted(false);
     }
 
     @Override
     public String toString() {
-        return getFormatted();
+        return getFormatted(false);
     }
 
     public UUID getId() {
@@ -70,8 +76,7 @@ public class Task implements Comparable<Task> {
 
     @Override
     public int compareTo(Task x) {
-        long xTime = x.getDueDate().getTime();
-        long yTime = this.getDueDate().getTime();
-        return Long.compare(xTime, yTime);
+        Logger.debug("%s vs %s = %s", getDueDate(), x.getDueDate(), getDueDate().compareTo(x.getDueDate()));
+        return getDueDate().compareTo(x.getDueDate());
     }
 }

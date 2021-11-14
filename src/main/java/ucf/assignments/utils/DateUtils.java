@@ -38,11 +38,14 @@ public class DateUtils {
 
         date = date.replace("-", " ");
         Scanner reader = new Scanner(date);
-        year = reader.nextInt();
-        month = reader.nextInt() - 1;
-        day = reader.nextInt();
+        try {
+            year = reader.nextInt();
+            month = reader.nextInt() - 1;
+            day = reader.nextInt();
+        } catch (Exception ignored) {
+        }
         Logger.debug("Parsed %d %d %d", year, month, day);
-        out = new GregorianCalendar(year, month, day).getTime();
+        out = Date.from(new GregorianCalendar(year, month, day).toZonedDateTime().toInstant());
 
         return out;
     }
