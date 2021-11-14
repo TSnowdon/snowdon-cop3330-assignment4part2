@@ -18,10 +18,8 @@ import ucf.assignments.utils.DateUtils;
 import ucf.assignments.utils.Logger;
 
 import java.net.URL;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class FXMLController implements Initializable {
 
@@ -38,6 +36,7 @@ public class FXMLController implements Initializable {
     public TextField newTaskDateField;
 
     public ComboBox<String> selectViewComboBox;
+    public String selectSorted = "Sort By Due Dates";
 
     public ListView<Task> taskListView;
     @FXML
@@ -63,6 +62,7 @@ public class FXMLController implements Initializable {
     public void displayStatusView() {
         if (selectViewComboBox.getItems().isEmpty()) {
             selectViewComboBox.getItems().addAll(StatusType.getDisplayNames());
+            selectViewComboBox.getItems().add(selectSorted);
         }
     }
 
@@ -84,9 +84,22 @@ public class FXMLController implements Initializable {
         Logger.debug("rendering...");
         taskListView.getItems().clear();
         Map<Task, ObservableValue<Boolean>> map = new HashMap<>();
+        ArrayList<Task> tasks = list.getTasks();
+
         StatusType currView = App.getCurrentView();
-        Logger.debug("-> Now viewing %s tasks", currView != null ? currView.getDisplayName() : "DEFAULT");
-        for (Task task : list.getTasks()) {
+        String currText = "DEFAULT";
+        if (selectViewComboBox.getValue() != null) {
+            if (selectViewComboBox.getValue().equals(selectSorted)) {
+                currText = "SORTING";
+                currView = null;
+                Logger.debug("[sorting] before sorting... %s", tasks);
+                tasks = tasks.stream().sorted(Comparator.comparingLong(task -> task.getDueDate().getTime())).collect(Collectors.toCollection(ArrayList::new));
+                Logger.debug("[sorting] after sorting... %s", tasks);
+            }
+        }
+        Logger.debug("-> Now viewing %s tasks", currView != null ? currView.getDisplayName() : currText);
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
             if (currView == null || task.getStatus().matches(currView)) {
                 map.put(task, new SimpleBooleanProperty(false));
             }
@@ -107,7 +120,7 @@ public class FXMLController implements Initializable {
         }));
     }
 
-    public void importList(ActionEvent actionEvent) {
+    public void importList() {
         String fileName = listNameTextField.getText();
         try {
             App.setCurrentTaskList(TaskList.deserialize(fileName + ".json"));
@@ -120,22 +133,23 @@ public class FXMLController implements Initializable {
         }
     }
 
-    public void exportList(ActionEvent actionEvent) {
+    public void exportList() {
         if (!App.getCurrentTaskList().isEmpty()) {
             App.getCurrentTaskList().serialize();
         }
     }
 
-    public void selectView(ActionEvent actionEvent) {
+    public void selectView() {
         String viewValue = selectViewComboBox.getValue();
         StatusType viewType = StatusType.getType(viewValue);
         if (viewType != null) {
+            Logger.debug("[selectView] setting viewType...");
             App.setCurrentView(viewType);
         }
         render();
     }
 
-    public void newTask(ActionEvent actionEvent) {
+    public void newTask() {
         String desc = newTaskDescriptionTextField.getText();
         String date = newTaskDateField.getText();
 
@@ -160,7 +174,7 @@ public class FXMLController implements Initializable {
         render();
     }
 
-    public void deleteTask(ActionEvent actionEvent) {
+    public void deleteTask() {
         if (App.getCurrentTask() != null) {
             Logger.debug("Task \"%s\" had been deleted", App.getCurrentTask().getDescription());
             App.getCurrentTaskList().removeTask(App.getCurrentTask());
@@ -169,7 +183,7 @@ public class FXMLController implements Initializable {
         }
     }
 
-    public void updateTask(ActionEvent actionEvent) {
+    public void updateTask() {
         String desc = newTaskDescriptionTextField.getText();
         String date = newTaskDateField.getText();
 
@@ -190,8 +204,6 @@ public class FXMLController implements Initializable {
             }
         }
 
-        //  App.updateCurrentTaskList(curr);
-
         render();
     }
 
@@ -206,7 +218,7 @@ public class FXMLController implements Initializable {
         }
     }
 
-    public void clearList(ActionEvent actionEvent) {
+    public void clearList() {
         App.getCurrentTaskList().clearTasks();
         render();
     }

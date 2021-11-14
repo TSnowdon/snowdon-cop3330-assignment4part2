@@ -10,6 +10,9 @@ import ucf.assignments.utils.FileUtils;
 import ucf.assignments.utils.Logger;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
 
@@ -23,6 +26,10 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    public List<Long> getTaskTimes() {
+        return tasks.stream().map(Task::getDueDate).map(Date::getTime).collect(Collectors.toList());
     }
 
     public void setTasks(ArrayList<Task> tasks) {

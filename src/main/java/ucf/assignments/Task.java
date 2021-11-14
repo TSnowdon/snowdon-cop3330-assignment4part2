@@ -10,7 +10,7 @@ import ucf.assignments.utils.DateUtils;
 import java.util.Date;
 import java.util.UUID;
 
-public class Task {
+public class Task implements Comparable<Task> {
 
     public static final int MAX_DESC_LENGTH = 256;
     public static final int MIN_DESC_LENGTH = 1;
@@ -66,5 +66,12 @@ public class Task {
 
     public UUID getId() {
         return uuid;
+    }
+
+    @Override
+    public int compareTo(Task x) {
+        long xTime = x.getDueDate().getTime();
+        long yTime = this.getDueDate().getTime();
+        return Long.compare(xTime, yTime);
     }
 }
