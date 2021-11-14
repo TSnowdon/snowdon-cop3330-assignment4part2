@@ -14,12 +14,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
 import ucf.assignments.utils.DateUtils;
 import ucf.assignments.utils.Logger;
 
 import java.net.URL;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 public class FXMLController implements Initializable {
 

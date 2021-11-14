@@ -9,12 +9,7 @@ import com.google.gson.Gson;
 import ucf.assignments.utils.FileUtils;
 import ucf.assignments.utils.Logger;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
 
 public class TaskList {
 
@@ -88,7 +83,7 @@ public class TaskList {
         Gson output = new Gson();
         String toJson = output.toJson(this);
         FileUtils.write(name + ".json", toJson);
-        Logger.debug("%s has been serialized", name);
+        Logger.debug("%s has been serialized to %s", name, FileUtils.LIST_PATH + name + ".json");
     }
 
     public static TaskList deserialize(String path) {

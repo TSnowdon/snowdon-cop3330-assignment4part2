@@ -18,7 +18,7 @@ public class FileUtils {
 
     private static FileUtils instance;
 
-    private static final String LIST_PATH = "src/main/content/tasklists/";
+    public static final String LIST_PATH = "src/main/resources/ucf/assignments/content/tasklists/";
 
     public FileUtils() {
 
