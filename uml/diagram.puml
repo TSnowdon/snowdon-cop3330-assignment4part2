@@ -5,13 +5,19 @@ class Application
 class Task
 class TaskList
 class FXMLController
+class FileUtils
+class DateUtils
+class Logger
 enum StatusType
 
 App -- TaskList
+Logger -- App
 TaskList -- Task
 StatusType -- Task
 StatusType -- App
 FXMLController -- App
+DateUtils -- Task
+FileUtils -- TaskList
 
 class App extends Application {
 Main Application that will handle
@@ -39,12 +45,16 @@ __ Methods __
 
 class TaskList {
 Data Class for storing Tasks.
+Contains some similar interfaces
+to that of an array list but not
+enough to consider implementation.
 __ Attributes __
 - ArrayList<Task> tasks
 - String name
 __ Methods __
 + ArrayList<Task> getTasks()
 + String getName()
++ boolean containsTask()
 }
 
 class Application {
@@ -59,8 +69,40 @@ through buttons, text fields, etc.
 }
 
 enum StatusType {
-    EARLY
-    LATE
+    Defines the current status of a Task
+    --
+    COMPLETE
+    NOT_COMPLETE
+    ALL
+}
+
+class Logger {
+    A Utils class used for Debugging.
+    Not used in final product.
+
+    "debug" determines if statements are printed.
+    --
+    + boolean debug
+    --
+}
+
+class DateUtils {
+Utils class used for parsing String into
+Date Objects and handles improper input.
+--
+- DateUtils instance;
+--
++ {static} Date parse();
+}
+
+class FileUtils {
+Utils class used for reading and writing to Files.
+--
+- FileUtils instance;
+--
++ {static} Date read();
++ {static} Date write();
+
 }
 
 @enduml

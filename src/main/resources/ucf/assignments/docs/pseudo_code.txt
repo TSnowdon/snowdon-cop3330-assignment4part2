@@ -17,21 +17,6 @@ public class App {
             Load CSS
     }
 
-    public static void importTaskList(String fileName){
-        Verify File Format
-            GSON deserializes to JSON
-            Notify user that list was importer
-        Else
-            Tell them invalid File Format
-    }
-
-    public static void exportTaskList(String fileName){
-        GSON serializes to JSON
-        Name JSON "fileName"
-        Save JSON file
-        Notify user that list was exported
-    }
-
     public static void removeList(){
         Remove "currentList"
         Set GUI Stage to default (empty)
@@ -85,5 +70,19 @@ public class TaskList{
             update Task
                 If its pass its dueDate
                     set status to LATE
+    }
+
+
+    public static void import(String fileName){
+        Verify File Format
+            GSON deserializes to JSON
+        Else
+            Tell them invalid File Format
+    }
+
+    public static void export(String fileName){
+        GSON serializes to JSON
+        Name JSON "fileName"
+        Save JSON file
     }
 }
